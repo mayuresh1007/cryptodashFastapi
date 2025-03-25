@@ -1,4 +1,4 @@
-python -m venv env
+python -m venv env --  for create vertual env to add dependancy
 
 
-.\env\Scripts\activate
+.\env\Scripts\activate -- activate in local terminal for windos mac is different command
