@@ -1,0 +1,24 @@
+# Ignore Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore environment files
+.env
+.venv/
+env/
+venv/
+ENV/
+
+# Ignore logs and database dumps
+logs/
+*.log
+*.sqlite3
+
+# Ignore dependency files
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore IDE/editor specific files
+.vscode/
