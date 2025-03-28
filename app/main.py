@@ -83,7 +83,7 @@ def add_to_wishlist(item: dict, token: str = Depends(oauth2_scheme)):
     return {"message": "Item added to wishlist"}
 
 @app.delete("/auth/remove-from-wishlist")
-def remove_from_wishlist(item:dict,token:str = Depends(oauth2_scheme)):
+def remove_from_wishlist(item: dict,token: str = Depends(oauth2_scheme)):
     email=decode_access_token(token)
     if not email:
         raise HTTPException(status_code=401,detail="Invalid token")
