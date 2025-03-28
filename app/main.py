@@ -89,3 +89,8 @@ def remove_from_wishlist(item: dict,token: str = Depends(oauth2_scheme)):
         raise HTTPException(status_code=401,detail="Invalid token")
     users_collection.update_one({"email":email},{"$pull":{"wishlist":item}})
     return {"message":"Item removed from wishlist"}
+
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from Render!"}
