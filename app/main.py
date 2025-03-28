@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*", "http://localhost:3000"],  #  frontend URL (e.g., "http://localhost:3000")
+    allow_origins=["*", "http://localhost:3000","https://cryptodashboardmayu.netlify.app"],  #  frontend URL (e.g., "http://localhost:3000")
     allow_credentials=True,
     allow_methods=["*"],  # Allow all HTTP methods (GET, POST, PUT, DELETE)
     allow_headers=["*"],  # Allow all headers
