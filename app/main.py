@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from app.database import users_collection
-from app.models import User, UpdateUser
+from app.models import User, UpdateUser,LoginRequest
 from app.auth import verify_password, get_password_hash, create_access_token, decode_access_token
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
@@ -31,14 +31,15 @@ def register_user(user: User):
 
     return {"message": "User registered successfully"}
 
+
 @app.post("/auth/login")
-def login(data: LoginRequest):
-    user = users_collection.find_one({"email": data.email})
-    if not user or not verify_password(data.password, user["password"]):
+def login(request: LoginRequest):
+    user = users_collection.find_one({"email": request.email})
+    if not user or not verify_password(request.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    access_token = create_access_token({"sub": data.email})
-    return {"token": access_token, "user": {"email": data.email}}
+    access_token = create_access_token({"sub": request.email})
+    return {"token": access_token, "user": {"email": request.email}}
 
 @app.get("/auth/getuser")
 def get_user(token: str = Depends(oauth2_scheme)):
