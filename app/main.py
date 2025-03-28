@@ -32,13 +32,13 @@ def register_user(user: User):
     return {"message": "User registered successfully"}
 
 @app.post("/auth/login")
-def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = users_collection.find_one({"email": form_data.username})
-    if not user or not verify_password(form_data.password, user["password"]):
+def login(data: LoginRequest):
+    user = users_collection.find_one({"email": data.email})
+    if not user or not verify_password(data.password, user["password"]):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    access_token = create_access_token({"sub": form_data.username})
-    return {"token": access_token, "user": {"email": form_data.username}}
+    access_token = create_access_token({"sub": data.email})
+    return {"token": access_token, "user": {"email": data.email}}
 
 @app.get("/auth/getuser")
 def get_user(token: str = Depends(oauth2_scheme)):
