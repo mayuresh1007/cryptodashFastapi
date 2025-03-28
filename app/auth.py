@@ -13,7 +13,7 @@ if not SECRET_KEY:
     raise ValueError("SECRET_KEY is missing in the environment variables")
 
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 *24 *3
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
