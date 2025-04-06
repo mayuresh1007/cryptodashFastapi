@@ -1,5 +1,5 @@
-from fastapi import FastAPI, HTTPException, Depends, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import FastAPI, HTTPException, Depends
+from fastapi.security import OAuth2PasswordBearer
 from app.database import users_collection
 from app.models import User, UpdateUser,LoginRequest
 from app.auth import verify_password, get_password_hash, create_access_token, decode_access_token
@@ -57,26 +57,6 @@ def get_user(token: str = Depends(oauth2_scheme)):
 
     return {"email": email, "wishlist": user.get("wishlist", [])}
 
-# @app.put("/auth/update")
-# def update_user(update_data: UpdateUser, token: str = Depends(oauth2_scheme)):
-#     email = decode_access_token(token)
-#     if not email:
-#         raise HTTPException(status_code=401, detail="Invalid token")
-
-#     user = users_collection.find_one({"email": email})
-#     if not user:
-#         raise HTTPException(status_code=404, detail="User not found")
-
-#     update_fields = {}
-#     if update_data.new_email:
-#         update_fields["email"] = update_data.new_email
-#     if update_data.new_password:
-#         update_fields["password"] = get_password_hash(update_data.new_password)
-#     if update_data.wishlist is not None:
-#         update_fields["wishlist"] = update_data.wishlist
-
-#     users_collection.update_one({"email": email}, {"$set": update_fields})
-#     return {"message": "Profile updated successfully"}
 
 @app.put("/auth/add-to-wishlist")
 def add_to_wishlist(item: dict, token: str = Depends(oauth2_scheme)):
